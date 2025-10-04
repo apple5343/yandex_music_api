@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "generated/go/user/v1";
+
+message User {
+    string user_uuid = 1;
+    string email = 2;
+    // С паролем работает только auth сервис, он не летает по запросам ни в каком случае
+}
+
+message GetUserByIdRequest {
+    string user_uuid = 1;
+}
+
+message GetUserByIdResponse {
+    User user = 1;
+}
+
+message LikeTrackRequest {
+    string user_uuid = 1;
+    string track_uuid = 2;
+}
+
+message LikeTrackResponse {
+    string user_uuid = 1;
+    string track_uuid = 2;
+}

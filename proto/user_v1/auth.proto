@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "generated/go/user/v1";
+
+message UserCredentials {
+    string email = 1;
+    string password = 2;
+};
+
+message LoginRequest {
+    UserCredentials credentials = 1;
+}
+
+message LoginResponse {
+    string refresh_token = 1;
+}
+
+message RegisterUserRequest {
+    UserCredentials credentials = 1;
+}
+
+message RegisterUserResponse {
+    string user_uuid = 1;
+}
+
+message RegisterModeratorRequest {
+    UserCredentials credentials = 1;
+}
+
+message RegisterModeratorResponse {
+    string moderator_uuid = 1;
+}
+
+message RegisterArtistRequest {
+    UserCredentials credentials = 1;
+    string artist_name = 2;
+    string application = 3;
+}
+
+message RegisterArtistResponse {
+    string application_uuid = 1;
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+    string refresh_token = 1;
+}
+
+message GetAccessTokenRequest {
+    string refresh_token = 1;
+}
+
+message GetAccessTokenResponse {
+    string access_token = 1;
+}

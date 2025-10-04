@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "auth.proto";
+import "access.proto";
+import "user_data.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "generated/go/user/v1";
+
+package user_v1;
+
+service AuthService {
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+    rpc RegisterModerator(RegisterModeratorRequest) returns (RegisterModeratorResponse);
+    rpc RegisterArtist(RegisterArtistRequest) returns (RegisterArtistResponse);
+
+    rpc GetRefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc GetAccessToken(GetAccessTokenRequest) returns (GetAccessTokenResponse);
+}
+
+service AccessService {
+    rpc Check(CheckRequest) returns (google.protobuf.Empty);
+}
+
+service UserDataService {
+    rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+    rpc LikeTrack(LikeTrackRequest) returns (LikeTrackResponse);
+    //rpc EditUser(EditUserRequest) returns (EditUserResponse);
+}

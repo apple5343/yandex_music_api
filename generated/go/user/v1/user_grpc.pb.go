@@ -36,7 +36,7 @@ type AuthServiceClient interface {
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
 	RegisterModerator(ctx context.Context, in *RegisterModeratorRequest, opts ...grpc.CallOption) (*RegisterModeratorResponse, error)
 	RegisterArtist(ctx context.Context, in *RegisterArtistRequest, opts ...grpc.CallOption) (*RegisterArtistResponse, error)
-	GetRefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
+	GetRefreshToken(ctx context.Context, in *GetRefreshTokenRequest, opts ...grpc.CallOption) (*GetRefreshTokenResponse, error)
 	GetAccessToken(ctx context.Context, in *GetAccessTokenRequest, opts ...grpc.CallOption) (*GetAccessTokenResponse, error)
 }
 
@@ -88,9 +88,9 @@ func (c *authServiceClient) RegisterArtist(ctx context.Context, in *RegisterArti
 	return out, nil
 }
 
-func (c *authServiceClient) GetRefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
+func (c *authServiceClient) GetRefreshToken(ctx context.Context, in *GetRefreshTokenRequest, opts ...grpc.CallOption) (*GetRefreshTokenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RefreshTokenResponse)
+	out := new(GetRefreshTokenResponse)
 	err := c.cc.Invoke(ctx, AuthService_GetRefreshToken_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -116,7 +116,7 @@ type AuthServiceServer interface {
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
 	RegisterModerator(context.Context, *RegisterModeratorRequest) (*RegisterModeratorResponse, error)
 	RegisterArtist(context.Context, *RegisterArtistRequest) (*RegisterArtistResponse, error)
-	GetRefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
+	GetRefreshToken(context.Context, *GetRefreshTokenRequest) (*GetRefreshTokenResponse, error)
 	GetAccessToken(context.Context, *GetAccessTokenRequest) (*GetAccessTokenResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
@@ -140,7 +140,7 @@ func (UnimplementedAuthServiceServer) RegisterModerator(context.Context, *Regist
 func (UnimplementedAuthServiceServer) RegisterArtist(context.Context, *RegisterArtistRequest) (*RegisterArtistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterArtist not implemented")
 }
-func (UnimplementedAuthServiceServer) GetRefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
+func (UnimplementedAuthServiceServer) GetRefreshToken(context.Context, *GetRefreshTokenRequest) (*GetRefreshTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRefreshToken not implemented")
 }
 func (UnimplementedAuthServiceServer) GetAccessToken(context.Context, *GetAccessTokenRequest) (*GetAccessTokenResponse, error) {
@@ -240,7 +240,7 @@ func _AuthService_RegisterArtist_Handler(srv interface{}, ctx context.Context, d
 }
 
 func _AuthService_GetRefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RefreshTokenRequest)
+	in := new(GetRefreshTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -252,7 +252,7 @@ func _AuthService_GetRefreshToken_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: AuthService_GetRefreshToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetRefreshToken(ctx, req.(*RefreshTokenRequest))
+		return srv.(AuthServiceServer).GetRefreshToken(ctx, req.(*GetRefreshTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

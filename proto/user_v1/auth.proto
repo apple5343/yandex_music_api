@@ -41,11 +41,11 @@ message RegisterArtistResponse {
     string application_uuid = 1;
 }
 
-message RefreshTokenRequest {
+message GetRefreshTokenRequest {
     string refresh_token = 1;
 }
 
-message RefreshTokenResponse {
+message GetRefreshTokenResponse {
     string refresh_token = 1;
 }
 

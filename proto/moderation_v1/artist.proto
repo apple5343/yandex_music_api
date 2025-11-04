@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "generated/go/moderation/v1";
+
+import "google/protobuf/timestamp.proto";
+
+enum ApplicationStatus {
+    PENDING = 0;
+    UNDER_CONSIDERATION = 1;
+    APPROVED = 2;
+    REJECTED = 3;
+}
+
+message ArtistApplication {
+    string application_uuid = 1;
+    string artist_uuid = 2;
+    string artist_name = 3;
+    string comment = 4;
+    string bio = 5;
+    google.protobuf.Timestamp created_at = 6;
+    ApplicationStatus status = 7;
+    string moderator_uuid = 8;
+    google.protobuf.Timestamp assigned_at = 9;
+}
+
+message CreateArtistApplicationRequest {
+    string artist_uuid = 1;
+    string artist_name = 2;
+    string comment = 3;
+    string bio = 4; // json
+}
+
+message CreateArtistApplicationResponse {
+    string application_uuid = 1;
+    string status = 2;
+}
+
+message GetPendingArtistApplicationResponse {
+    ArtistApplication application = 1;
+    string status = 2;
+}
+
+message GetArtistApplicationRequest {
+    string application_uuid = 1;
+}
+
+message GetArtistApplicationResponse {
+    ArtistApplication application = 1;
+}
+
+message SubmitVerdictOnArtistRequest {
+    string application_uuid = 1;
+    string verdict = 2;
+    string comment = 3;
+}
+
+message SubmitVerdictOnArtistResponse {
+    string application_uuid = 1;
+    string status = 2;
+}
